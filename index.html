@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Idées cadeaux locales</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Souvenirs Locaux</title>
   </head>
   <body>
     <h1>🎁 Trouvez des idées cadeaux selon votre ville</h1>
 
     <form id="city-form">
       <label for="city">Entrez une ville :</label>
-      <input type="text" id="city" placeholder="Ex : Laguiole" required>
+      <input type="text" id="city" placeholder="Ex : Laguiole" required />
       <button type="submit">Rechercher</button>
     </form>
 
-    <div id="results" style="margin-top:20px;"></div>
+    <div id="results" style="margin-top: 20px;"></div>
 
-    <!-- ton script principal -->
-    <script src="script.js"></script>
-
-    <!-- Google Maps SDK avec ta clé sécurisée -->
-    <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRyW3FsIM3VJJmREadSY6kciBqYcQov9w&libraries=places">
+    <!-- SCRIPT GOOGLE MAPS (avec async et callback) -->
+    <script
+      async
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRyW3FsIM3VJJmREadSY6kciBqYcQov9w&libraries=places&callback=initApp">
     </script>
+
+    <!-- SCRIPT PRINCIPAL -->
+    <script src="script.js"></script>
   </body>
 </html>
