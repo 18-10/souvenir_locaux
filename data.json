@@ -1,0 +1,39 @@
+{
+  "laguiole": {
+    "region": "Aveyron",
+    "souvenirs": [
+      {
+        "nom": "Couteau de Laguiole",
+        "categorie": "artisanat",
+        "description": "Couteau emblématique forgé à la main, symbole de l’Aubrac.",
+        "lieux": [
+          {
+            "nom": "Forge Honoré Durand",
+            "note": 4.9,
+            "adresse": "Rue du Valat, Laguiole",
+            "maps": "https://maps.google.com/?q=Forge+Honore+Durand+Laguiole"
+          },
+          {
+            "nom": "Coutellerie Laguiole en Aubrac",
+            "note": 4.8,
+            "adresse": "Zone Artisanale, Laguiole",
+            "maps": "https://maps.google.com/?q=Laguiole+en+Aubrac"
+          }
+        ]
+      },
+      {
+        "nom": "Café torréfié localement",
+        "categorie": "gastronomie",
+        "description": "Torréfaction artisanale du Café de l’Aubrac, grains et moulus disponibles.",
+        "lieux": [
+          {
+            "nom": "Café de l’Aubrac",
+            "note": 4.7,
+            "adresse": "Place du Foirail, Laguiole",
+            "maps": "https://maps.google.com/?q=Café+de+l’Aubrac+Laguiole"
+          }
+        ]
+      }
+    ]
+  }
+}
