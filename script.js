@@ -1,5 +1,5 @@
 async function getCoordinates(city) {
-  const apiKey = "AIzaSyDO97DkNg_sloX8CXrzthhhMTgtob60df8";
+  const apiKey = "AIzaSyDRyW3FsIM3VJJmREadSY6kciBqYcQov9w";
   const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(city)}&key=${apiKey}`;
   const response = await fetch(url);
   const data = await response.json();
@@ -10,7 +10,7 @@ async function getCoordinates(city) {
 }
 
 async function getPlaces(lat, lng) {
-  const apiKey = "AIzaSyDO97DkNg_sloX8CXrzthhhMTgtob60df8";
+  const apiKey = "AIzaSyDRyW3FsIM3VJJmREadSY6kciBqYcQov9w";
   const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=5000&type=store&key=${apiKey}`;
   const response = await fetch(url);
   const data = await response.json();
