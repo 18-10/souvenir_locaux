@@ -3,35 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Idées cadeaux & souvenirs locaux</title>
+  <title>Souvenirs Locaux — Idées Cadeaux Artisanat Français</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <header>
-    <h1>🎁 Idées cadeaux & souvenirs locaux</h1>
-    <p>Entrez votre ville ou code postal pour découvrir les spécialités de la région.</p>
-  </header>
-
   <main>
-    <form id="searchForm">
-      <input type="text" id="searchInput" placeholder="Ex : Laguiole ou 12210" required>
-      <button type="submit">Rechercher</button>
-    </form>
+    <h1>🎁 Souvenirs Locaux</h1>
+    <p>
+      Entrez une ville ou un code postal pour découvrir les meilleures idées cadeaux locales :
+    </p>
 
-    <div id="results"></div>
+    <!-- 🧭 FORMULAIRE DE RECHERCHE -->
+    <div id="search-box">
+      <input
+        id="cityInput"
+        type="text"
+        placeholder="Ex : Laguiole, 12210"
+        style="padding: 8px; width: 250px; border-radius: 8px; border: 1px solid #ccc;"
+      >
+      <button
+        id="searchBtn"
+        style="padding: 8px 15px; background-color: #103E1C; color: white; border: none; border-radius: 8px; cursor: pointer;"
+      >
+        Rechercher
+      </button>
+    </div>
+
+    <!-- 🧾 ZONE DES RÉSULTATS -->
+    <div id="results" style="margin-top: 20px;"></div>
   </main>
 
-  <footer>
-    <p>© 2025 - Souvenirs & Artisanat Français</p>
-  </footer>
-
+  <!-- 📦 IMPORT DES SCRIPTS -->
   <script src="script.js"></script>
   <script
-  async
-  defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDO97DkNg_sloX8CXrzthhhMTgtob60df8&libraries=places&callback=initMap">
-</script>
-<script src="script.js"></script>
-
+    async
+    defer
+    src="https://maps.googleapis.com/maps/api/js?key=TA_CLE_API_ICI&libraries=places&callback=initMap">
+  </script>
 </body>
 </html>
