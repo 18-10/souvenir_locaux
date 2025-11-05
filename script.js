@@ -1,56 +1,40 @@
-async function getCoordinates(city) {
-  const apiKey = "AIzaSyDRyW3FsIM3VJJmREadSY6kciBqYcQov9w";
-  const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(city)}&key=${apiKey}`;
-  const response = await fetch(url);
-  const data = await response.json();
-  if (data.results && data.results[0]) {
-    return data.results[0].geometry.location;
-  }
-  throw new Error("Ville introuvable");
-}
-
-async function getPlaces(lat, lng) {
-  const apiKey = "AIzaSyDRyW3FsIM3VJJmREadSY6kciBqYcQov9w";
-  const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=5000&type=store&key=${apiKey}`;
-  const response = await fetch(url);
-  const data = await response.json();
-  return data.results.slice(0, 10);
-}
-
-async function searchCity() {
-  const city = document.getElementById("cityInput").value;
-  const resultsDiv = document.getElementById("results");
-  resultsDiv.innerHTML = "🔍 Recherche en cours...";
-
-  try {
-    const coords = await getCoordinates(city);
-    const places = await getPlaces(coords.lat, coords.lng);
-
-    resultsDiv.innerHTML = `
-      <h2>🗺️ Lieux recommandés près de ${city}</h2>
-      <ul>
-        ${places
-          .map(
-            (p) => `
-          <li>
-            <strong>${p.name}</strong><br>
-            Note : ${p.rating || "N/A"} ⭐<br>
-            ${p.vicinity || ""}
-          </li>`
-          )
-          .join("")}
-      </ul>`;
-  } catch (error) {
-    resultsDiv.innerHTML = "❌ Erreur : " + error.message;
-  }
-}
-
-function initMap() {
-  console.log("Google Maps chargé avec succès");
-}
-
 document.addEventListener("DOMContentLoaded", () => {
-  document
-    .getElementById("searchBtn")
-    .addEventListener("click", searchCity);
+  const form = document.getElementById("city-form");
+  const resultsDiv = document.getElementById("results");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const city = document.getElementById("city").value.trim();
+    if (!city) return;
+    searchPlaces(city);
+  });
 });
+
+function searchPlaces(city) {
+  const service = new google.maps.places.PlacesService(document.createElement("div"));
+  const request = {
+    query: `spécialités locales artisanat souvenir ${city}`,
+    region: "fr",
+  };
+
+  service.textSearch(request, (results, status) => {
+    const resultsDiv = document.getElementById("results");
+    if (status === google.maps.places.PlacesServiceStatus.OK && results.length > 0) {
+      const html = results
+        .slice(0, 10)
+        .map(
+          (r) => `
+            <div style="margin-bottom:10px;padding:10px;border:1px solid #ccc;border-radius:8px;">
+              <strong>${r.name}</strong><br>
+              ${r.formatted_address || ""}
+              ${r.rating ? `<br>⭐ ${r.rating} / 5` : ""}
+              ${r.user_ratings_total ? ` (${r.user_ratings_total} avis)` : ""}
+            </div>`
+        )
+        .join("");
+      resultsDiv.innerHTML = `<h3>Résultats pour ${city}</h3>${html}`;
+    } else {
+      resultsDiv.innerHTML = "Aucun résultat trouvé pour cette ville.";
+    }
+  });
+}
