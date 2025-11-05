@@ -1,45 +1,27 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Souvenirs Locaux — Idées Cadeaux Artisanat Français</title>
-  <link rel="stylesheet" href="style.css">
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idées cadeaux locales</title>
+  </head>
+  <body>
+    <h1>🎁 Trouvez des idées cadeaux selon votre ville</h1>
 
-<body>
-  <main>
-    <h1>🎁 Souvenirs Locaux</h1>
-    <p>
-      Entrez une ville ou un code postal pour découvrir les meilleures idées cadeaux locales :
-    </p>
+    <form id="city-form">
+      <label for="city">Entrez une ville :</label>
+      <input type="text" id="city" placeholder="Ex : Laguiole" required>
+      <button type="submit">Rechercher</button>
+    </form>
 
-    <!-- 🧭 FORMULAIRE DE RECHERCHE -->
-    <div id="search-box">
-      <input
-        id="cityInput"
-        type="text"
-        placeholder="Ex : Laguiole, 12210"
-        style="padding: 8px; width: 250px; border-radius: 8px; border: 1px solid #ccc;"
-      >
-      <button
-        id="searchBtn"
-        style="padding: 8px 15px; background-color: #103E1C; color: white; border: none; border-radius: 8px; cursor: pointer;"
-      >
-        Rechercher
-      </button>
-    </div>
+    <div id="results" style="margin-top:20px;"></div>
 
-    <!-- 🧾 ZONE DES RÉSULTATS -->
-    <div id="results" style="margin-top: 20px;"></div>
-  </main>
+    <!-- ton script principal -->
+    <script src="script.js"></script>
 
-  <!-- 📦 IMPORT DES SCRIPTS -->
-  <script src="script.js"></script>
-  <script
-    async
-    defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRyW3FsIM3VJJmREadSY6kciBqYcQov9w&libraries=places&callback=initMap">
-  </script>
-</body>
+    <!-- Google Maps SDK avec ta clé sécurisée -->
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=TA_CLE_API_SECURISEE&libraries=places">
+    </script>
+  </body>
 </html>
