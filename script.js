@@ -1,43 +1,56 @@
-async function chargerDonnees() {
-  const response = await fetch('data.json');
+async function getCoordinates(city) {
+  const apiKey = "AIzaSyDO97DkNg_sloX8CXrzthhhMTgtob60df8";
+  const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(city)}&key=${apiKey}`;
+  const response = await fetch(url);
   const data = await response.json();
-  return data;
+  if (data.results && data.results[0]) {
+    return data.results[0].geometry.location;
+  }
+  throw new Error("Ville introuvable");
 }
 
-document.getElementById('searchForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const recherche = document.getElementById('searchInput').value.trim().toLowerCase();
-  const resultatsDiv = document.getElementById('results');
-  resultatsDiv.innerHTML = "<p>🔍 Recherche en cours...</p>";
+async function getPlaces(lat, lng) {
+  const apiKey = "AIzaSyDO97DkNg_sloX8CXrzthhhMTgtob60df8";
+  const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=5000&type=store&key=${apiKey}`;
+  const response = await fetch(url);
+  const data = await response.json();
+  return data.results.slice(0, 10);
+}
 
-  const data = await chargerDonnees();
-  const region = Object.keys(data).find(ville => recherche.includes(ville));
+async function searchCity() {
+  const city = document.getElementById("cityInput").value;
+  const resultsDiv = document.getElementById("results");
+  resultsDiv.innerHTML = "🔍 Recherche en cours...";
 
-  if (!region) {
-    resultatsDiv.innerHTML = "<p>Aucune information trouvée pour cette localité.</p>";
-    return;
+  try {
+    const coords = await getCoordinates(city);
+    const places = await getPlaces(coords.lat, coords.lng);
+
+    resultsDiv.innerHTML = `
+      <h2>🗺️ Lieux recommandés près de ${city}</h2>
+      <ul>
+        ${places
+          .map(
+            (p) => `
+          <li>
+            <strong>${p.name}</strong><br>
+            Note : ${p.rating || "N/A"} ⭐<br>
+            ${p.vicinity || ""}
+          </li>`
+          )
+          .join("")}
+      </ul>`;
+  } catch (error) {
+    resultsDiv.innerHTML = "❌ Erreur : " + error.message;
   }
+}
 
-  const infos = data[region];
-  let html = `<h2>🎁 Idées cadeaux à rapporter de ${region.charAt(0).toUpperCase() + region.slice(1)}</h2>`;
+function initMap() {
+  console.log("Google Maps chargé avec succès");
+}
 
-  infos.souvenirs.forEach(souvenir => {
-    html += `
-      <div class="souvenir">
-        <h3>${souvenir.nom}</h3>
-        <p>${souvenir.description}</p>
-        <ul>
-          ${souvenir.lieux.map(lieu => `
-            <li>
-              <strong>${lieu.nom}</strong> — ⭐ ${lieu.note}<br>
-              ${lieu.adresse}<br>
-              <a href="${lieu.maps}" target="_blank">Voir sur Google Maps</a>
-            </li>
-          `).join('')}
-        </ul>
-      </div>
-    `;
-  });
-
-  resultatsDiv.innerHTML = html;
+document.addEventListener("DOMContentLoaded", () => {
+  document
+    .getElementById("searchBtn")
+    .addEventListener("click", searchCity);
 });
