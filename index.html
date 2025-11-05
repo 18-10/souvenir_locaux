@@ -3,27 +3,38 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Souvenirs Locaux</title>
+    <title>Souvenirs Locaux — Idées Cadeaux Artisanaux</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
-    <h1>🎁 Trouvez des idées cadeaux selon votre ville</h1>
+    <header>
+      <h1>🎁 Souvenirs Locaux</h1>
+      <p>Découvrez les meilleures idées cadeaux et spécialités artisanales selon la ville où vous êtes 🇫🇷</p>
+    </header>
 
-    <form id="city-form">
-      <label for="city">Entrez une ville :</label>
-      <input type="text" id="city" placeholder="Ex : Laguiole" required />
-      <button type="submit">Rechercher</button>
-    </form>
+    <main>
+      <form id="city-form">
+        <label for="city">Entrez une ville :</label>
+        <input type="text" id="city" placeholder="Ex : Laguiole, Annecy, Lyon..." required />
+        <button type="submit">Rechercher</button>
+      </form>
 
-    <div id="results" style="margin-top: 20px;"></div>
+      <div id="results"></div>
+    </main>
 
-    <!-- SCRIPT GOOGLE MAPS (avec async et callback) -->
+    <footer>
+      <p>© 2025 Souvenirs Locaux — Fait avec ❤️ en France</p>
+    </footer>
+
+    <!-- Google Maps SDK -->
     <script
       async
       defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRyW3FsIM3VJJmREadSY6kciBqYcQov9w&libraries=places&callback=initApp">
+      src="https://maps.googleapis.com/maps/api/js?key=TA_CLE_API_SECURISEE&libraries=places&callback=initApp">
     </script>
 
-    <!-- SCRIPT PRINCIPAL -->
+    <!-- Script principal -->
     <script src="script.js"></script>
   </body>
 </html>
